@@ -3,17 +3,14 @@
     background-repeat: repeat;
 }
 #announce {
-    height: 200px;
+    height: 30%;
+    width: 80%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     vertical-align: middle;
-    /*
-    margin: auto;
-    width: 50%;
-    */
 }
 
 #announce .Victory {
@@ -22,9 +19,4 @@
 
 #announce .Patience {
     color: gray;
-}
-
-#announce::after {
-    content: "";
-    opacity: .4;
 }

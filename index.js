@@ -1,6 +1,54 @@
 (function()
 {
     "use strict";
+    var secondsInYear = 31540000;
+    var secondsInMonth = 2628000;
+    var secondsInDay = 86400;
+    var secondsInHour = 3600;
+    var secondsInMinute = 60;
+
+    var calculateOne = function(secondsLeft, denom, unit)
+    {
+        var string = "";
+        if (secondsLeft >= denom)
+        {
+            var one = Math.floor(secondsLeft / denom);
+            string += one + " " + unit;
+            if (one !== 1)
+                string += "s";
+            
+            secondsLeft -= (denom * one);
+        }
+        return {secondsLeft: secondsLeft, string: string};
+    }
+
+    var secondsToString = function(secondsLeft)
+    {
+        var iterate = [
+            {denom: secondsInYear, unit: 'year'},
+            {denom: secondsInMonth, unit: 'month'},
+            {denom: secondsInDay, unit: 'day'},
+            {denom: secondsInHour, unit: 'hour'},
+            {denom: secondsInMinute, unit: 'minute'},
+            {denom: 1, unit: 'seconds'}
+        ];
+
+        var asString = '';
+        for (var idx = 0; idx < iterate.length - 1; ++idx)
+        {
+            var ret = calculateOne(secondsLeft, iterate[idx].denom, iterate[idx].unit);
+            secondsLeft = ret.secondsLeft;
+            if (0 !== asString.length && 0 !== ret.string.length)
+                asString += ', ';
+            if (0 !== ret.string.length)
+                asString += ret.string;
+        }
+
+        if (0 !== asString.length)
+            asString += ', and ';
+        asString += Math.floor(secondsLeft) + ' seconds';
+        return asString;
+    }
     
     var timeLeft = function()
     {
@@ -14,9 +62,10 @@
         var secondsLeft = timeLeft();
         var ids = [ '#header', '#content'];
 
-        if (secondsLeft <= 0)
+        if(secondsLeft <= 0)
         {
-            $('#content').html('Yes');
+            var string = "Yes! I am " + secondsToString(Math.abs(secondsLeft)) + " old (and keeping Mom & Dad awake!)";
+            $('#content').html(string);
             ids.forEach(function(id)
             {
                 $(id).addClass('Victory');
@@ -25,15 +74,7 @@
         }
         else
         {
-            var days = secondsLeft / 86400;
-            var hours = ( ( days - Math.floor( days ) ) ) * 24;
-            var minutes = ( ( hours - Math.floor( hours ) ) % 24 ) * 60;
-            var seconds = ( ( minutes - Math.floor( minutes ) ) % 60 ) * 60;
-            var string = "Not yet, patience! " + 
-                Math.floor( days ) + " days " + 
-                Math.floor( hours ) + " hours " + 
-                Math.floor( minutes ) + " minutes, and " + 
-                Math.floor( seconds) + " seconds left!";
+            var string = "Not yet, patience! " + secondsToString(secondsLeft) + " left!";
             $('#content').html(string);
             ids.forEach(function(id)
             {
