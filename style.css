@@ -3,7 +3,7 @@
     background-repeat: repeat;
 }
 #announce {
-    height: 30%;
+    height: 50%;
     width: 80%;
     position: absolute;
     top: 50%;
@@ -11,6 +11,14 @@
     transform: translate(-50%, -50%);
     text-align: center;
     vertical-align: middle;
+}
+
+#announce h2 {
+    font-size: 7vmin;
+}
+
+#announce h3 {
+    font-size: 6vmin;
 }
 
 #announce .Victory {

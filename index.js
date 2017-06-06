@@ -64,7 +64,7 @@
 
         if(secondsLeft <= 0)
         {
-            var string = "Yes! I am " + secondsToString(Math.abs(secondsLeft)) + " old (and keeping Mom & Dad awake!)";
+            var string = "Yes!<br>I am " + secondsToString(Math.abs(secondsLeft)) + " old (and keeping Mom & Dad awake!)";
             $('#content').html(string);
             ids.forEach(function(id)
             {
@@ -74,7 +74,7 @@
         }
         else
         {
-            var string = "Not yet, patience! " + secondsToString(secondsLeft) + " left!";
+            var string = "Not yet, patience!<br>" + secondsToString(secondsLeft) + " left!";
             $('#content').html(string);
             ids.forEach(function(id)
             {
