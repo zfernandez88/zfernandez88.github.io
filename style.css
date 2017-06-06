@@ -28,3 +28,13 @@
 #announce .Patience {
     color: gray;
 }
+
+@media only screen and (max-device-width: 480px) {
+    #announce h2 {
+        font-size: 3.8vmax;
+    }
+
+    #announce h3 {
+        font-size: 2.8vmax;
+    }    
+}
