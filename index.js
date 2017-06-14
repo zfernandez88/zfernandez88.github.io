@@ -6,6 +6,15 @@
     var secondsInDay = 86400;
     var secondsInHour = 3600;
     var secondsInMinute = 60;
+    var iterate = [
+        {denom: secondsInYear, unit: 'year'},
+        {denom: secondsInMonth, unit: 'month'},
+        {denom: secondsInDay, unit: 'day'},
+        {denom: secondsInHour, unit: 'hour'},
+        {denom: secondsInMinute, unit: 'minute'},
+        {denom: 1, unit: 'seconds'}
+    ];
+    var idsToReclass = ['#header', '#content'];
 
     var calculateOne = function(secondsLeft, denom, unit)
     {
@@ -24,15 +33,6 @@
 
     var secondsToString = function(secondsLeft)
     {
-        var iterate = [
-            {denom: secondsInYear, unit: 'year'},
-            {denom: secondsInMonth, unit: 'month'},
-            {denom: secondsInDay, unit: 'day'},
-            {denom: secondsInHour, unit: 'hour'},
-            {denom: secondsInMinute, unit: 'minute'},
-            {denom: 1, unit: 'seconds'}
-        ];
-
         var asString = '';
         for (var idx = 0; idx < iterate.length - 1; ++idx)
         {
@@ -53,20 +53,19 @@
     var timeLeft = function()
     {
         var current = new Date().getTime() / 1000;
-        var cutoff = 1497377700; // Epoch seconds - 13 Jun, 2:15PM 
+        var cutoff = 1497380340; // Epoch seconds - 13 Jun, 2:15PM 
         return cutoff - current;
     }
 
     var redraw = function()
     {
         var secondsLeft = timeLeft();
-        var ids = [ '#header', '#content'];
 
         if(secondsLeft <= 0)
         {
             var string = "Yes!<br>I am " + secondsToString(Math.abs(secondsLeft)) + " old (and keeping Mom & Dad awake!)";
             $('#content').html(string);
-            ids.forEach(function(id)
+            idsToReclass.forEach(function(id)
             {
                 $(id).addClass('Victory');
                 $(id).removeClass('Patience');
@@ -76,7 +75,7 @@
         {
             var string = "Not yet, patience!<br>" + secondsToString(secondsLeft) + " left!";
             $('#content').html(string);
-            ids.forEach(function(id)
+            idsToReclass.forEach(function(id)
             {
                 $(id).removeClass('Victory');
                 $(id).addClass('Patience');
